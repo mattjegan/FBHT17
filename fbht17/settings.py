@@ -26,6 +26,7 @@ SECRET_KEY = '79l$*n!(=3omw&jg4tf(9hyymu6oa53w$i0)_j#@!=1)6d=kbe'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    '127.0.0.1',
     'fbht17.herokuapp.com',
 ]
 
@@ -40,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api',
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -79,8 +81,12 @@ WSGI_APPLICATION = 'fbht17.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'fbht17',
+        'USER': 'postgres',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 

@@ -26,7 +26,7 @@ python fbht17/manage.py runserver
 ## API Docs
 ## Steps
 ### List Steps
-GET /steps
+GET /steps/
 ```
 [
   {
@@ -38,7 +38,7 @@ GET /steps
 ]
 ```
 ### Create Step
-POST /steps
+POST /steps/
 ```
 {
   "type": "camera",
@@ -56,7 +56,7 @@ Response
 }
 ```
 ### Get Step
-GET /steps/:step_id
+GET /steps/:step_id/
 ```
 {
   "id": 1,
@@ -68,7 +68,7 @@ GET /steps/:step_id
 
 ## Missions
 ### List Missions
-GET /missions
+GET /missions/
 ```
 [
   {
@@ -86,7 +86,7 @@ GET /missions
 ]
 ```
 ### Create Mission
-POST /missions
+POST /missions/
 ```
 {
   "name": "My Sunday Mission",
@@ -116,7 +116,7 @@ Response
 }
 ```
 ### Get Mission
-GET /missions/:mission_id
+GET /missions/:mission_id/
 ```
 {
   "id": 1,
@@ -134,7 +134,7 @@ GET /missions/:mission_id
 
 ## Profiles
 ### List Profiles
-GET /profiles
+GET /profiles/
 ```
 [
   {
@@ -151,7 +151,7 @@ GET /profiles
 ]
 ```
 ### Create Profile
-POST /profiles
+POST /profiles/
 ```
 {
   "user": 1,
@@ -179,7 +179,7 @@ Response
 }
 ```
 ### Get Profile
-GET /profiles/:profile_id
+GET /profiles/:profile_id/
 ```
 {
   "id": 1,
@@ -196,7 +196,7 @@ GET /profiles/:profile_id
 
 ## Results
 ### List Results
-GET /results
+GET /results/
 ```
 [
   {
@@ -209,7 +209,7 @@ GET /results
 ]
 ```
 ### Create Result
-POST /results
+POST /results/
 ```
 {
   "user": 1,
@@ -228,7 +228,7 @@ Response
 }
 ```
 ### Get Result
-GET /results/:result_id
+GET /results/:result_id/
 ```
 {
   "id": 1,
