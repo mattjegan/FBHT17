@@ -33,7 +33,8 @@ GET /steps/
     "id": 1,
     "type": "camera",
     "desc": "Take a picture of Bondi beach",
-    "cost": 0.30
+    "cost": 0.30,
+    "mission": 1 // Mission ID
   }
 ]
 ```
@@ -43,7 +44,8 @@ POST /steps/
 {
   "type": "camera",
   "desc": "Take a picture of Bondi beach",
-  "cost": 0.30
+  "cost": 0.30,
+  "mission": 1
 }
 ```
 Response
@@ -52,7 +54,8 @@ Response
   "id": 1,
   "type": "camera",
   "desc": "Take a picture of Bondi beach",
-  "cost": 0.30
+  "cost": 0.30,
+  "mission": 1
 }
 ```
 ### Get Step
@@ -62,7 +65,8 @@ GET /steps/:step_id/
   "id": 1,
   "type": "camera",
   "desc": "Take a picture of Bondi beach",
-  "cost": 0.30
+  "cost": 0.30,
+  "mission": 1
 }
 ```
 
@@ -78,10 +82,11 @@ GET /missions/
     "long": 0.5555,
     "author": 1, // Profile ID
     "desc": "I need my mission completed",
-    "cost": 1.20, // Total cost of steps
+    "cost": 1.20, // Total cost of steps - Calculated
     "num_users": 5,
     "expire": "2008-09-15T15:53:00", // Default: 1hr after creation, no timezone info
-    "active": true
+    "active": true,
+    "steps": [1, 2, 3] // Step IDs - Calculated
   }
 ]
 ```
@@ -97,7 +102,8 @@ POST /missions/
   "cost": 1.20,
   "num_users": 5,
   "expire": "2008-09-15T15:53:00",
-  "active": true
+  "active": true,
+  "steps": [1, 2, 3]
 }
 ```
 Response
@@ -112,7 +118,8 @@ Response
   "cost": 1.20,
   "num_users": 5,
   "expire": "2008-09-15T15:53:00",
-  "active": true
+  "active": true,
+  "steps": [1, 2, 3]
 }
 ```
 ### Get Mission
@@ -128,7 +135,8 @@ GET /missions/:mission_id/
   "cost": 1.20,
   "num_users": 5,
   "expire": "2008-09-15T15:53:00",
-  "active": true
+  "active": true,
+  "steps": [1, 2, 3]
 }
 ```
 
