@@ -46,3 +46,7 @@ class CompleteReceipt(models.Model):
     profile = models.ForeignKey('api.Profile')
     mission = models.ForeignKey('api.Mission')
     completed = models.DateTimeField(default=datetime.now, editable=False)
+
+
+class Image(models.Model, ):
+    image = models.ImageField(upload_to='images')

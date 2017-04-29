@@ -1,9 +1,10 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
 from rest_framework.generics import ListCreateAPIView, GenericAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.views import APIView
 
 from api.models import Profile, Mission, Step, Result, CompleteReceipt
-from api.serializers import ProfileSerializer, MissionSerializer, StepSerializer, ResultSerializer
+from api.serializers import ProfileSerializer, MissionSerializer, StepSerializer, ResultSerializer, ImageSerializer
 
 class LoginView(GenericAPIView):
     def post(self, request, *args, **kwargs):
@@ -90,3 +91,16 @@ class ResultList(ListCreateAPIView):
 class ResultDetail(RetrieveAPIView):
     queryset = Result.objects.all()
     serializer_class = ResultSerializer
+
+
+class UploadImage(APIView, ):
+
+    def post(self, request, *args, **kwargs):
+
+        # Create the image
+        image = ImageSerializer(data=request.data)
+        if not image.is_valid():
+            return Response(image.errors, status=400)
+
+        image.save()
+        return Response(image.to_representation(image.instance), status=200)

@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
+from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers, validators
 
-from api.models import Profile, Mission, Step, Result, CompleteReceipt
+from api.models import Profile, Mission, Step, Result, CompleteReceipt, Image
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -52,3 +53,11 @@ class ResultSerializer(serializers.ModelSerializer):
     class Meta:
         model = Result
         fields = '__all__'
+
+
+class ImageSerializer(serializers.ModelSerializer, ):
+
+    image = Base64ImageField(required=False)
+
+    class Meta:
+        model = Image
