@@ -1,5 +1,5 @@
 from rest_framework.response import Response
-from rest_framework.generics import ListCreateAPIView, RetrieveAPIView, GenericAPIView
+from rest_framework.generics import ListCreateAPIView, GenericAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
 
 from api.models import Profile, Mission, Step, Result
 from api.serializers import ProfileSerializer, MissionSerializer, StepSerializer, ResultSerializer
@@ -42,7 +42,7 @@ class MissionList(ListCreateAPIView):
     serializer_class = MissionSerializer
 
 
-class MissionDetail(RetrieveAPIView):
+class MissionDetail(RetrieveUpdateDestroyAPIView):
     queryset = Mission.objects.all()
     serializer_class = MissionSerializer
 
