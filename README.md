@@ -270,3 +270,11 @@ GET /results/:result_id/
   "completed": "2008-09-15T15:53:00"
 }
 ```
+## Images
+### Upload Image
+POST /upload/
+```
+{
+  "image": "R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" // Base64 Encoded Image File
+}
+```
