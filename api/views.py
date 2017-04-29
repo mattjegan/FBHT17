@@ -69,21 +69,22 @@ class ResultList(ListCreateAPIView):
         # Create the result as usual
         response = super(ResultList, self).create(request, *args, **kwargs)
 
-        # If it completed a mission, pay the profile
-        step_id = response.data.get('step')
-        profile_id = response.data.get('profile')
-        profile = Profile.objects.get(id=profile_id)
-        mission = Step.objects.get(id=step_id).mission
+        if response.status_code >= 200 and response.status_code < 300:
+            # If it completed a mission, pay the profile
+            step_id = response.data.get('step')
+            profile_id = response.data.get('profile')
+            profile = Profile.objects.get(id=profile_id)
+            mission = Step.objects.get(id=step_id).mission
 
-        results = Result.objects.filter(step__mission=mission, profile_id=profile_id)
-        if results.count() == Step.objects.filter(mission=mission).count():
-            # Complete!
-            complete_receipt = CompleteReceipt(profile=profile, mission=mission)
-            complete_receipt.save()
+            results = Result.objects.filter(step__mission=mission, profile_id=profile_id)
+            if results.count() == Step.objects.filter(mission=mission).count():
+                # Complete!
+                complete_receipt = CompleteReceipt(profile=profile, mission=mission)
+                complete_receipt.save()
 
-            # Pay the user
-            profile.amount += mission.cost
-            profile.save()
+                # Pay the user
+                profile.amount += mission.cost
+                profile.save()
 
         return response
 

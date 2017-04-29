@@ -8,6 +8,7 @@ django-cloudinary-storage==0.2.1
 django-extra-fields==0.9
 django-filter==1.0.2
 djangorestframework==3.6.2
+editdistance==0.3.1
 enum34==1.1.6
 future==0.16.0
 gapic-google-cloud-vision-v1==0.90.3

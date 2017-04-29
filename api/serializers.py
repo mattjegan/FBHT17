@@ -1,6 +1,7 @@
 import io
 import os
 
+import editdistance
 from google.cloud import vision
 from django.contrib.auth.models import User
 from drf_extra_fields.fields import Base64ImageField
@@ -92,9 +93,13 @@ class ResultSerializer(serializers.ModelSerializer):
 
                 # Do the comparison
                 match = False
-                for val in match_values:
-                    if val in comparison_values:
-                        match = True
+                for mval in match_values:
+                    for cval in comparison_values:
+                        if editdistance.eval(mval.lower(), cval.lower()) <= 2:
+                            match = True
+                            break
+                    if match:
+                        break
 
                 if not match:
                     raise serializers.ValidationError('Unverifiable Image')
