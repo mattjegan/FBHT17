@@ -57,6 +57,7 @@ GET /steps/
 [
   {
     "id": 1,
+    "name": "Take Pic",
     "type": "camera",
     "desc": "Take a picture of Bondi beach",
     "cost": 0.30,
@@ -68,6 +69,7 @@ GET /steps/
 POST /steps/
 ```
 {
+  "name": "Take Pic",
   "type": "camera",
   "desc": "Take a picture of Bondi beach",
   "cost": 0.30,
@@ -78,6 +80,7 @@ Response
 ```
 {
   "id": 1,
+  "name": "Take Pic",
   "type": "camera",
   "desc": "Take a picture of Bondi beach",
   "cost": 0.30,
@@ -89,6 +92,7 @@ GET /steps/:step_id/
 ```
 {
   "id": 1,
+  "name": "Take Pic",
   "type": "camera",
   "desc": "Take a picture of Bondi beach",
   "cost": 0.30,
