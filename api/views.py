@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
 from rest_framework.generics import ListCreateAPIView, GenericAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
 
@@ -40,6 +41,8 @@ class ProfileDetail(RetrieveAPIView):
 class MissionList(ListCreateAPIView):
     queryset = Mission.objects.all()
     serializer_class = MissionSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('author', 'active',)
 
 
 class MissionDetail(RetrieveUpdateDestroyAPIView):
