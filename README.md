@@ -177,9 +177,9 @@ GET /profiles/
     "first_name": "Bobby",
     "last_name": "Droptables",
     "current_mission": 1, // Mission ID
-    "completed_missions": [2, 3, 4], // Mission IDs
-    "expired_missions": [5, 6, 7], // Mission IDs
-    "active_missions": [8, 9, 10], // Mission IDs
+    "completed_missions": [2, 3, 4], // Mission IDs - Calculated
+    "expired_missions": [5, 6, 7], // Mission IDs - Calculated
+    "active_missions": [8, 9, 10], // Mission IDs - Calculated
     "amount": 31.45
   }
 ]
@@ -193,9 +193,6 @@ POST /profiles/
   "first_name": "Bobby",
   "last_name": "Droptables",
   "current_mission": 1,
-  "completed_missions": [2, 3, 4],
-  "expired_missions": [5, 6, 7],
-  "active_missions": [8, 9, 10],
   "amount": 31.45
 }
 ```
