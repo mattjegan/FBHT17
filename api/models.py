@@ -1,6 +1,9 @@
 from datetime import datetime, timedelta
 from django.db import models
 
+def get_expiry():
+    return datetime.now() + timedelta(hours=1)
+
 class Step(models.Model):
     type = models.CharField(max_length=50, blank=False, null=False)
     desc = models.TextField(blank=False, null=False)
@@ -15,7 +18,7 @@ class Mission(models.Model):
     author = models.ForeignKey('api.Profile')
     desc = models.TextField(blank=False, null=False)
     num_users = models.IntegerField(blank=False, null=False)
-    expire = models.DateTimeField(default=datetime.now() + timedelta(hours=1), null=False)
+    expire = models.DateTimeField(default=get_expiry, null=False)
     active = models.BooleanField(default=True, blank=False, null=False)
 
 
