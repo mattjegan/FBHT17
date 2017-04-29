@@ -278,3 +278,10 @@ POST /upload/
   "image": "R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" // Base64 Encoded Image File
 }
 ```
+Response
+```
+{
+  "id": 1,
+  "image": "https://res.cloudinary.com/hua3msykn/image/upload/v1/images/451b8eb7-6f8_infvkr"
+}
+```
