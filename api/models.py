@@ -5,6 +5,7 @@ def get_expiry():
     return datetime.now() + timedelta(hours=1)
 
 class Step(models.Model):
+    name = models.CharField(max_length=50, blank=False, null=False)
     type = models.CharField(max_length=50, blank=False, null=False)
     desc = models.TextField(blank=False, null=False)
     cost = models.FloatField(blank=False, null=False)

@@ -50,6 +50,14 @@ class StepSerializer(serializers.ModelSerializer):
 
 class ResultSerializer(serializers.ModelSerializer):
 
+    # step = serializers.PrimaryKeyRelatedField(queryset=Step.objects.all())
+    # profile = serializers.PrimaryKeyRelatedField(queryset=Profile.objects.all())
+    # content = serializers.CharField(allow_blank=False, allow_null=False)
+    #
+    # def validate_content(self, value):
+    #     print(value)
+    #     return value
+
     class Meta:
         model = Result
         fields = '__all__'
