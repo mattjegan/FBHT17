@@ -24,6 +24,32 @@ python fbht17/manage.py runserver
 ```
 
 ## API Docs
+
+## Authentication
+### Register
+See "Profiles -> Create Profile"
+
+### Login
+POST /login/
+```
+{
+  "email": "myemail@example.com",
+  "password": "mypassword"
+}
+```
+Response 200
+```
+{
+  "detail": "Success"
+}
+```
+Response 400
+```
+{
+  "detail": "Failed"
+}
+```
+
 ## Steps
 ### List Steps
 GET /steps/
