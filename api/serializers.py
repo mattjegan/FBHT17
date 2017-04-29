@@ -1,3 +1,7 @@
+import io
+import os
+
+from google.cloud import vision
 from django.contrib.auth.models import User
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers, validators
@@ -50,13 +54,59 @@ class StepSerializer(serializers.ModelSerializer):
 
 class ResultSerializer(serializers.ModelSerializer):
 
-    # step = serializers.PrimaryKeyRelatedField(queryset=Step.objects.all())
-    # profile = serializers.PrimaryKeyRelatedField(queryset=Profile.objects.all())
-    # content = serializers.CharField(allow_blank=False, allow_null=False)
-    #
-    # def validate_content(self, value):
-    #     print(value)
-    #     return value
+    step = serializers.PrimaryKeyRelatedField(queryset=Step.objects.all())
+    profile = serializers.PrimaryKeyRelatedField(queryset=Profile.objects.all())
+    content = serializers.CharField(allow_blank=False, allow_null=False)
+
+    def validate_content(self, value):
+
+        if value.startswith('http'):
+            try:
+                # Instantiates a client
+                vision_client = vision.Client()
+
+                # Create the image request
+                image = vision_client.image(source_uri=value)
+
+                # Performs landmark detection on the image file
+                landmarks = image.detect_landmarks(limit=10)
+
+                # Get the landmark values to match against
+                print('Landmarks:')
+                match_values = []
+                for landmark in landmarks:
+                    print(landmark.description)
+                    match_values.extend(landmark.description.split(' '))
+
+                # Get the comparison values from the Step
+                step_id = self.initial_data.get('step', None)
+                if step_id is None:
+                    raise serializers.ValidationError('Can not do image recognition without \'step\' field')
+                step = Step.objects.get(id=step_id)
+                comparison_values = []
+                comparison_values.extend(step.name.split(' '))
+                comparison_values.extend(step.desc.split(' '))
+
+                print('Match Values: {}'.format(match_values))
+                print('Compa Values: {}'.format(comparison_values))
+
+                # Do the comparison
+                match = False
+                for val in match_values:
+                    if val in comparison_values:
+                        match = True
+
+                if not match:
+                    raise serializers.ValidationError('Unverifiable Image')
+
+            except serializers.ValidationError as ve:
+                raise ve
+            except Exception as e:
+                return value
+
+        return value
+
+
 
     class Meta:
         model = Result
