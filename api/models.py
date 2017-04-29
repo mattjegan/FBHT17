@@ -21,6 +21,10 @@ class Mission(models.Model):
     expire = models.DateTimeField(default=get_expiry, null=False)
     active = models.BooleanField(default=True, blank=False, null=False)
 
+    @property
+    def cost(self):
+        return sum(Step.objects.filter(mission_id=self.id).values_list('cost', flat=True))
+
 
 class Profile(models.Model):
     email = models.EmailField(blank=False, null=False)
@@ -35,4 +39,10 @@ class Result(models.Model):
     profile = models.ForeignKey('api.Profile')
     step = models.ForeignKey('api.Step')
     content = models.TextField(blank=False, null=False)
+    completed = models.DateTimeField(default=datetime.now, editable=False)
+
+
+class CompleteReceipt(models.Model):
+    profile = models.ForeignKey('api.Profile')
+    mission = models.ForeignKey('api.Mission')
     completed = models.DateTimeField(default=datetime.now, editable=False)

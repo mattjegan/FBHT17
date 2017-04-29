@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.generics import ListCreateAPIView, GenericAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
 
-from api.models import Profile, Mission, Step, Result
+from api.models import Profile, Mission, Step, Result, CompleteReceipt
 from api.serializers import ProfileSerializer, MissionSerializer, StepSerializer, ResultSerializer
 
 class LoginView(GenericAPIView):
@@ -60,6 +60,28 @@ class StepDetail(RetrieveAPIView):
 class ResultList(ListCreateAPIView):
     queryset = Result.objects.all()
     serializer_class = ResultSerializer
+
+    def create(self, request, *args, **kwargs):
+        # Create the result as usual
+        response = super(ResultList, self).create(request, *args, **kwargs)
+
+        # If it completed a mission, pay the profile
+        step_id = response.data.get('step')
+        profile_id = response.data.get('profile')
+        profile = Profile.objects.get(id=profile_id)
+        mission = Step.objects.get(id=step_id).mission
+
+        results = Result.objects.filter(step__mission=mission, profile_id=profile_id)
+        if results.count() == Step.objects.filter(mission=mission).count():
+            # Complete!
+            complete_receipt = CompleteReceipt(profile=profile, mission=mission)
+            complete_receipt.save()
+
+            # Pay the user
+            profile.amount += mission.cost
+            profile.save()
+
+        return response
 
 
 class ResultDetail(RetrieveAPIView):
