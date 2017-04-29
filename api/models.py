@@ -1,6 +1,4 @@
 from datetime import datetime, timedelta
-
-from django.contrib.auth.models import User
 from django.db import models
 
 class Step(models.Model):
@@ -22,17 +20,18 @@ class Mission(models.Model):
 
 
 class Profile(models.Model):
-    user = models.ForeignKey(User)
+    email = models.EmailField(blank=False, null=False)
+    password = models.CharField(max_length=1000, blank=False, null=False)
     first_name = models.CharField(max_length=50, blank=False, null=False)
     last_name = models.CharField(max_length=50, blank=False, null=False)
     current_mission = models.ForeignKey('api.Mission', null=True)
-    completed_missions = models.ManyToManyField('api.Mission', related_name='completed_missions')
+    completed_missions = models.ManyToManyField('api.Mission', related_name='completed_missions', blank=True)
     # TODO: Calculate expired_missions and active_missions on serializer
     amount = models.FloatField(default=0.0, blank=False, null=False)
 
 
 class Result(models.Model):
-    user = models.ForeignKey(User)
+    profile = models.ForeignKey('api.Profile')
     step = models.ForeignKey('api.Step')
     content = models.TextField(blank=False, null=False)
     completed = models.DateTimeField(auto_created=True, editable=False)
