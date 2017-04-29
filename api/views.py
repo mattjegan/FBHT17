@@ -45,6 +45,22 @@ class MissionList(ListCreateAPIView):
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('author', 'active',)
 
+    def get_queryset(self):
+        qs = super(MissionList, self).get_queryset()
+
+        # Filter based on current_user to have just the missions that are incomplete
+        current_user = self.request.query_params.get('current_user', None)
+
+        if current_user is None:
+            return qs
+
+        profile = Profile.objects.filter(pk=current_user)
+        if not profile.exists():
+            return qs
+
+        profile = profile.first()
+        return qs.exclude(pk__in=list(profile.completed_missions))
+
 
 class MissionDetail(RetrieveUpdateDestroyAPIView):
     queryset = Mission.objects.all()

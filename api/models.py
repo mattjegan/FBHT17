@@ -35,6 +35,10 @@ class Profile(models.Model):
     current_mission = models.ForeignKey('api.Mission', null=True)
     amount = models.FloatField(default=0.0, blank=False, null=False)
 
+    @property
+    def completed_missions(self):
+        return CompleteReceipt.objects.filter(profile_id=self.id).values_list(flat=True)
+
 
 class Result(models.Model):
     profile = models.ForeignKey('api.Profile')

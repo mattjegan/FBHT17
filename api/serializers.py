@@ -23,7 +23,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         missions = Mission.objects.filter(author_id=instance.id)
         ret['expired_missions'] = missions.filter(active=False).values_list(flat=True)
         ret['active_missions'] = missions.filter(active=True).values_list(flat=True)
-        ret['completed_missions'] = CompleteReceipt.objects.filter(profile_id=instance.id).values_list(flat=True) #completed_missions
+        ret['completed_missions'] = instance.completed_missions
 
         return ret
 
