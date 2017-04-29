@@ -13,8 +13,8 @@ class Step(models.Model):
 
 class Mission(models.Model):
     name = models.CharField(max_length=50, blank=False, null=False)
-    lat = models.FloatField(blank=True, null=True),
-    long = models.FloatField(blank=True, null=True),
+    lat = models.FloatField(blank=False, null=False)
+    long = models.FloatField(blank=False, null=False)
     author = models.ForeignKey('api.Profile')
     desc = models.TextField(blank=False, null=False)
     num_users = models.IntegerField(blank=False, null=False)
