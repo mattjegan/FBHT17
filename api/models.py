@@ -28,7 +28,6 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=50, blank=False, null=False)
     last_name = models.CharField(max_length=50, blank=False, null=False)
     current_mission = models.ForeignKey('api.Mission', null=True)
-    completed_missions = models.ManyToManyField('api.Mission', related_name='completed_missions', blank=True)
     amount = models.FloatField(default=0.0, blank=False, null=False)
 
 
@@ -36,4 +35,4 @@ class Result(models.Model):
     profile = models.ForeignKey('api.Profile')
     step = models.ForeignKey('api.Step')
     content = models.TextField(blank=False, null=False)
-    completed = models.DateTimeField(auto_created=True, editable=False)
+    completed = models.DateTimeField(default=datetime.now, editable=False)

@@ -17,6 +17,27 @@ class ProfileSerializer(serializers.ModelSerializer):
         missions = Mission.objects.filter(author_id=instance.id)
         ret['expired_missions'] = missions.filter(active=False).values_list(flat=True)
         ret['active_missions'] = missions.filter(active=True).values_list(flat=True)
+
+        # This is gonna be slow as anything but it ain't no time for optimizing now
+        completed_missions = []
+        results = Result.objects.filter(profile_id=instance.id)
+        for mission in Mission.objects.all():
+            # Check that all steps in that mission have been completed
+            complete = True
+
+            steps = Step.objects.filter(mission=mission)
+            if not steps.exists():
+                continue
+
+            for step in steps:
+                if not results.filter(step=step).exists():
+                    complete = False
+
+            if complete:
+                completed_missions.append(mission.id)
+
+        ret['completed_missions'] = completed_missions
+
         return ret
 
     class Meta:
