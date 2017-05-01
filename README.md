@@ -1,8 +1,14 @@
 # Facebook Hackathon 2017 Backend
 
+This project is the one half of an app that we ([Matthew 
+Thomas](https://github.com/mthomas2992), [Stephanie Chua](https://github.com/stephaniesac) 
+and [myself](https://github.com/mattjegan)) created for the 2017 Sydney Facebook Hackathon. 
+It serves as the RESTful API used as part of our task crowdsourcing app.
+
 ## Requirements
 * Python 3.5+
 * Virtualenv
+* Google Cloud Vision API key
 
 ## Setup
 ```
